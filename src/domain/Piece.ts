@@ -2,6 +2,7 @@ import { PieceType, Coordinates, Color } from "./types";
 
 class Piece {
   alive: boolean;
+  active: boolean;
 
   constructor(
     public type: PieceType,
@@ -9,6 +10,7 @@ class Piece {
     public location: Coordinates
   ) {
     this.alive = true;
+    this.active = false;
   }
 
   moveTo(newLocation: Coordinates) {
@@ -17,6 +19,14 @@ class Piece {
 
   kill() {
     this.alive = false;
+  }
+
+  activate() {
+    this.active = true;
+  }
+
+  deactivate() {
+    this.active = false;
   }
 }
 

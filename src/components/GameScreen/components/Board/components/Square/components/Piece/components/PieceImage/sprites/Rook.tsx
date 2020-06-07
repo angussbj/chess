@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Color } from "../../../../../../../../../domain/types";
+import { Color } from "../../../../../../../../../../../domain/types";
 
 interface Props {
   color: string;

@@ -1,30 +1,34 @@
-import React, { FC } from "react";
-import pawn from "./sprites/Chess_plt45.svg";
-import { Pawn, Rook, Knight, Bishop, King, Queen } from "./sprites";
+import React, { FC, useContext } from "react";
+import { PieceImage } from "./components";
+import { GameContext } from "../../../..";
+import { Piece as PieceType } from "../../../../../../../../domain/types";
+import update from "immutability-helper";
 
 interface Props {
-  type: string;
-  color: string;
+  piece: PieceType;
   size: number;
 }
 
-const Piece: FC<Props> = ({ type, color, size }) => {
-  switch (type) {
-    case "Pawn":
-      return <Pawn size={size} color={color} />;
-    case "Rook":
-      return <Rook size={size} color={color} />;
-    case "Knight":
-      return <Knight size={size} color={color} />;
-    case "Bishop":
-      return <Bishop size={size} color={color} />;
-    case "King":
-      return <King size={size} color={color} />;
-    case "Queen":
-      return <Queen size={size} color={color} />;
-    default:
-      return null;
-  }
+const Piece: FC<Props> = ({ piece, size }) => {
+  const { gameState, setGameState } = useContext(GameContext);
+
+  const onClick = (): void => {
+    const newGameState = update(gameState, {
+      pieces: { [0]: { active: { $set: true } } },
+    });
+    setGameState(newGameState);
+  };
+
+  return (
+    <div onClick={onClick}>
+      <PieceImage
+        type={piece.type}
+        color={piece.color}
+        active={piece.active}
+        size={size}
+      />
+    </div>
+  );
 };
 
 export { Piece };

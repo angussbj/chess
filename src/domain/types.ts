@@ -7,6 +7,8 @@ export interface Piece {
   type: PieceType;
   color: Color;
   location: Coordinates;
+  active: boolean;
+  alive: boolean;
 }
 
 export enum PieceType {

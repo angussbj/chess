@@ -1,31 +1,39 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import styled from "styled-components";
 import {
   Coordinates,
   Piece as PieceType,
 } from "../../../../../../domain/types";
 import { Piece } from "./components";
+// import { Piece as PieceClass } from "../../../../../../domain";
+import { GameContext } from "../../";
 
 interface Props {
-  coordinates: Coordinates;
-  pieces: PieceType[];
+  location: Coordinates;
   size: number;
 }
 
-const Square: FC<Props> = ({ coordinates, pieces, size }) => {
-  const background = isBlack(coordinates) ? "indigo" : "powderblue";
-  console.log("size", size);
+const Square: FC<Props> = ({ location, size }) => {
+  const background = isBlack(location) ? "indigo" : "powderblue";
+
+  const { gameState } = useContext(GameContext);
+  // console.log("square renders at: ", JSON.stringify(location));
 
   return (
     <SquareDiv style={{ maxWidth: size, maxHeight: size, background }}>
-      {pieces.map((piece) => (
-        <Piece type={piece.type} color={piece.color} size={size} />
+      {livePiecesAt(location, gameState.pieces).map((piece) => (
+        <Piece piece={piece} size={size} />
       ))}
     </SquareDiv>
   );
 };
 
 const isBlack = ({ x, y }: Coordinates): boolean => (x - y) % 2 === 0;
+const livePiecesAt = (location: Coordinates, pieces: PieceType[]) => {
+  return pieces
+    .filter((p) => p.location.x === location.x && p.location.y === location.y)
+    .filter((p) => p.alive);
+};
 
 const SquareDiv = styled.div`
   flex: 1;
