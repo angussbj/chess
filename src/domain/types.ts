@@ -25,3 +25,8 @@ export enum Color {
   Black = "#000000",
   White = "#ffffff",
 }
+
+export enum Turn {
+  Black = "Black",
+  White = "White",
+}

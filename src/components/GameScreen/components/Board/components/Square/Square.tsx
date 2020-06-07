@@ -5,8 +5,8 @@ import {
   Piece as PieceType,
 } from "../../../../../../domain/types";
 import { Piece } from "./components";
-// import { Piece as PieceClass } from "../../../../../../domain";
 import { GameContext } from "../../";
+import update from "immutability-helper";
 
 interface Props {
   location: Coordinates;
@@ -16,12 +16,48 @@ interface Props {
 const Square: FC<Props> = ({ location, size }) => {
   const background = isBlack(location) ? "indigo" : "powderblue";
 
-  const { gameState } = useContext(GameContext);
+  const { gameState, setGameState } = useContext(GameContext);
+
+  const onClick = (): void => {
+    const activeColor = gameState.pieces.filter((p) => p.active)[0]?.color;
+    const colorOnSquare = livePiecesAt(location, gameState.pieces)[0]?.color;
+    if (activeColor && (!colorOnSquare || colorOnSquare !== activeColor)) {
+      const moveActivePieces = (pieces: PieceType[]): PieceType[] =>
+        pieces.map((p) => {
+          if (p.active) {
+            return update(p, {
+              location: { $set: location },
+              active: { $set: false },
+            });
+          }
+          return p;
+        });
+      const killPiecesOnSquare = (pieces: PieceType[]): PieceType[] =>
+        pieces.map((p) => {
+          if (p.location.x === location.x && p.location.y === location.y) {
+            return update(p, {
+              alive: { $set: false },
+            });
+          }
+          return p;
+        });
+      const newGameState = update(gameState, {
+        pieces: {
+          $apply: (pieces: PieceType[]) =>
+            moveActivePieces(killPiecesOnSquare(pieces)),
+        },
+      });
+      setGameState(newGameState);
+    }
+  };
 
   return (
-    <SquareDiv style={{ maxWidth: size, maxHeight: size, background }}>
+    <SquareDiv
+      style={{ maxWidth: size, maxHeight: size, background }}
+      onClick={onClick}
+    >
       {livePiecesAt(location, gameState.pieces).map((piece) => (
-        <Piece piece={piece} size={size} />
+        <Piece piece={piece} size={size} key={piece.id} />
       ))}
     </SquareDiv>
   );

@@ -292,9 +292,13 @@ const Board: FC = () => {
     <GameContext.Provider value={{ gameState, setGameState }}>
       <BoardContainer style={{ padding }}>
         {coordinateRow.map((x) => (
-          <ColumnContainer style={{ maxWidth: squareSize }}>
+          <ColumnContainer style={{ maxWidth: squareSize }} key={x}>
             {coordinateCol.map((y) => (
-              <Square size={squareSize} location={{ x, y }} />
+              <Square
+                size={squareSize}
+                location={{ x, y }}
+                key={JSON.stringify([x, y])}
+              />
             ))}
           </ColumnContainer>
         ))}
