@@ -19,7 +19,6 @@ export class State {
   }
 
   moveActiveTo(location: Coordinates): void {
-    console.log("moveActiveTo:" + JSON.stringify(location));
     this.livePiecesAt(location).map((p) => p.kill());
   }
 }

@@ -17,7 +17,6 @@ const Square: FC<Props> = ({ location, size }) => {
   const background = isBlack(location) ? "indigo" : "powderblue";
 
   const { gameState } = useContext(GameContext);
-  // console.log("square renders at: ", JSON.stringify(location));
 
   return (
     <SquareDiv style={{ maxWidth: size, maxHeight: size, background }}>

@@ -1,17 +1,27 @@
 import React, { FC } from "react";
 import { Color } from "../../../../../../../../../../../domain/types";
+import { Glow } from "./filters";
 
 interface Props {
   color: string;
+  active: boolean;
   size: number;
 }
 
-const King: FC<Props> = ({ color, size }) => {
+const King: FC<Props> = ({ color, active, size }) => {
   const primary = color;
   const secondary = color === Color.Black ? Color.White : Color.Black;
   return (
     <svg width={size} height={size} viewBox="0 0 45 45">
-      <g fill={primary} stroke={secondary} strokeWidth={1.2}>
+      <defs>
+        <Glow />
+      </defs>
+      <g
+        fill={primary}
+        stroke={secondary}
+        strokeWidth={1.2}
+        filter={active ? "url(#glow)" : undefined}
+      >
         <path d="M 22.5,11.63 L 22.5,6" />
         <path d="M 20,8 L 25,8" />
         <path d="M 22.5,25 C 22.5,25 27,17.5 25.5,14.5 C 25.5,14.5 24.5,12 22.5,12 C 20.5,12 19.5,14.5 19.5,14.5 C 18,17.5 22.5,25 22.5,25" />

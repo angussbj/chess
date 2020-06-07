@@ -4,6 +4,7 @@ export interface Coordinates {
 }
 
 export interface Piece {
+  id: number;
   type: PieceType;
   color: Color;
   location: Coordinates;

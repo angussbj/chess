@@ -13,8 +13,9 @@ const Piece: FC<Props> = ({ piece, size }) => {
   const { gameState, setGameState } = useContext(GameContext);
 
   const onClick = (): void => {
+    const pieceIndex = gameState.pieces.findIndex((p) => p.id === piece.id);
     const newGameState = update(gameState, {
-      pieces: { [0]: { active: { $set: true } } },
+      pieces: { [pieceIndex]: { active: { $apply: (x: boolean) => !x } } },
     });
     setGameState(newGameState);
   };
