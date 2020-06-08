@@ -1,10 +1,10 @@
-import { State, Coordinates, Piece } from "domain/types";
+import { State, setState, Coordinates, Piece } from "domain/types";
 import { livePiecesAt } from "./State";
 import update from "immutability-helper";
 
 export const onClickSquare = (
   gameState: State,
-  setGameState: (state: State) => void,
+  setGameState: setState,
   location: Coordinates
 ) => () => {
   const activeColor = gameState.pieces.filter((p) => p.active)[0]?.color;

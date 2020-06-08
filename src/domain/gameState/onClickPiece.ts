@@ -1,9 +1,9 @@
-import { State, Piece } from "domain/types";
+import { State, setState, Piece } from "domain/types";
 import * as state from "./State";
 
 export const onClickPiece = (
   gameState: State,
-  setGameState: (state: State) => void,
+  setGameState: setState,
   piece: Piece
 ) => () => {
   const activeColor = gameState.pieces.filter((p) => p.active)[0]?.color;

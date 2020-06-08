@@ -2,6 +2,8 @@ export interface State {
   pieces: Piece[];
 }
 
+export type setState = (state: State) => void;
+
 export interface Piece {
   id: number;
   type: PieceType;

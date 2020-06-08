@@ -1,4 +1,4 @@
-import { State, Coordinates, Piece } from "domain/types";
+import { State, setState, Coordinates, Piece } from "domain/types";
 import update from "immutability-helper";
 import * as Pieces from "./Pieces";
 
@@ -10,7 +10,7 @@ export const livePiecesAt = (location: Coordinates, state: State) => {
 
 export const toggleActiveByPieceId = (
   gameState: State,
-  setGameState: (state: State) => void,
+  setGameState: setState,
   id: number
 ): void => {
   const pieceIndex = gameState.pieces.findIndex((p) => p.id === id);
@@ -22,7 +22,7 @@ export const toggleActiveByPieceId = (
 
 export const killPiecesAt = (
   gameState: State,
-  setGameState: (state: State) => void,
+  setGameState: setState,
   location: Coordinates
 ): void => {
   const newGameState = update(gameState, {
@@ -35,7 +35,7 @@ export const killPiecesAt = (
 
 export const moveActivePiecesTo = (
   gameState: State,
-  setGameState: (state: State) => void,
+  setGameState: setState,
   location: Coordinates
 ): void => {
   const newGameState = update(gameState, {
