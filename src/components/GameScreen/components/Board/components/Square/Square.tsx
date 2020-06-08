@@ -1,9 +1,13 @@
 import React, { FC, useContext } from "react";
 import styled from "styled-components";
-import { Coordinates, Piece as PieceType } from "domain/types";
+import { Coordinates } from "domain/types";
 import { Piece, GridArrangement } from "./components";
-import { GameContext } from "../../";
-import update from "immutability-helper";
+import {
+  GameContext,
+  squareColor,
+  onClickSquare,
+  livePiecesAt,
+} from "domain/gameState";
 
 interface Props {
   location: Coordinates;
@@ -11,51 +15,18 @@ interface Props {
 }
 
 const Square: FC<Props> = ({ location, size }) => {
-  const background = isBlack(location) ? "indigo" : "powderblue";
+  const background = squareColor(location);
 
   const { gameState, setGameState } = useContext(GameContext);
 
-  const onClick = (): void => {
-    const activeColor = gameState.pieces.filter((p) => p.active)[0]?.color;
-    const colorOnSquare = livePiecesAt(location, gameState.pieces)[0]?.color;
-    if (activeColor && (!colorOnSquare || colorOnSquare !== activeColor)) {
-      const moveActivePieces = (pieces: PieceType[]): PieceType[] =>
-        pieces.map((p) => {
-          if (p.active) {
-            return update(p, {
-              location: { $set: location },
-              active: { $set: false },
-            });
-          }
-          return p;
-        });
-      const killPiecesOnSquare = (pieces: PieceType[]): PieceType[] =>
-        pieces.map((p) => {
-          if (p.location.x === location.x && p.location.y === location.y) {
-            return update(p, {
-              alive: { $set: false },
-            });
-          }
-          return p;
-        });
-      const newGameState = update(gameState, {
-        pieces: {
-          $apply: (pieces: PieceType[]) =>
-            moveActivePieces(killPiecesOnSquare(pieces)),
-        },
-      });
-      setGameState(newGameState);
-    }
-  };
-
-  const piecesOnSquare = livePiecesAt(location, gameState.pieces);
+  const piecesOnSquare = livePiecesAt(location, gameState);
   const dimension = Math.ceil(Math.sqrt(piecesOnSquare.length));
   const pieceSize = size / dimension;
 
   return (
     <SquareDiv
       style={{ maxWidth: size, maxHeight: size, background }}
-      onClick={onClick}
+      onClick={onClickSquare(gameState, setGameState, location)}
     >
       <GridArrangement>
         {piecesOnSquare.map((piece) => (
@@ -64,13 +35,6 @@ const Square: FC<Props> = ({ location, size }) => {
       </GridArrangement>
     </SquareDiv>
   );
-};
-
-const isBlack = ({ x, y }: Coordinates): boolean => (x - y) % 2 === 0;
-const livePiecesAt = (location: Coordinates, pieces: PieceType[]) => {
-  return pieces
-    .filter((p) => p.location.x === location.x && p.location.y === location.y)
-    .filter((p) => p.alive);
 };
 
 const SquareDiv = styled.div`

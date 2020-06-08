@@ -1,6 +1,5 @@
-export interface Coordinates {
-  x: number;
-  y: number;
+export interface State {
+  pieces: Piece[];
 }
 
 export interface Piece {
@@ -29,4 +28,9 @@ export enum Color {
 export enum Turn {
   Black = "Black",
   White = "White",
+}
+
+export interface Coordinates {
+  x: number;
+  y: number;
 }
