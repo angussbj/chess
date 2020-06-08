@@ -1,5 +1,5 @@
 import { State, Coordinates, Piece } from "domain/types";
-import { livePiecesAt } from "./state";
+import { livePiecesAt } from "./State";
 import update from "immutability-helper";
 
 export const onClickSquare = (
