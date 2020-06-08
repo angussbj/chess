@@ -24,7 +24,7 @@ const Piece: FC<Props> = ({ piece, size }) => {
   };
 
   return (
-    <div onClick={onClick}>
+    <div style={{ height: size, width: size }} onClick={onClick}>
       <PieceImage
         type={piece.type}
         color={piece.color}

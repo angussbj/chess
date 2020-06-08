@@ -4,7 +4,7 @@ import {
   Coordinates,
   Piece as PieceType,
 } from "../../../../../../domain/types";
-import { Piece } from "./components";
+import { Piece, GridArrangement } from "./components";
 import { GameContext } from "../../";
 import update from "immutability-helper";
 
@@ -51,14 +51,20 @@ const Square: FC<Props> = ({ location, size }) => {
     }
   };
 
+  const piecesOnSquare = livePiecesAt(location, gameState.pieces);
+  const dimension = Math.ceil(Math.sqrt(piecesOnSquare.length));
+  const pieceSize = size / dimension;
+
   return (
     <SquareDiv
       style={{ maxWidth: size, maxHeight: size, background }}
       onClick={onClick}
     >
-      {livePiecesAt(location, gameState.pieces).map((piece) => (
-        <Piece piece={piece} size={size} key={piece.id} />
-      ))}
+      <GridArrangement>
+        {piecesOnSquare.map((piece) => (
+          <Piece piece={piece} size={pieceSize} key={piece.id} />
+        ))}
+      </GridArrangement>
     </SquareDiv>
   );
 };
