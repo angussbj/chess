@@ -1,5 +1,5 @@
 import React, { FC, createContext, useContext, useState } from "react";
-import { State } from "../../../../../../domain";
+import { State } from "domain";
 
 // TODO: Extract to higher level mo
 

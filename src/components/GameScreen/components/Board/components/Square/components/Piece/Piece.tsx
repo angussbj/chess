@@ -1,7 +1,7 @@
 import React, { FC, useContext } from "react";
 import { PieceImage } from "./components";
 import { GameContext } from "../../../..";
-import { Piece as PieceType } from "../../../../../../../../domain/types";
+import { Piece as PieceType } from "domain/types";
 import update from "immutability-helper";
 
 interface Props {

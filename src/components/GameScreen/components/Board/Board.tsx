@@ -1,7 +1,7 @@
 import React, { FC, useState, createContext } from "react";
 import styled from "styled-components";
 import { Square } from "./components";
-import { PieceType, Color, Piece } from "../../../../domain/types";
+import { PieceType, Color, Piece } from "domain/types";
 import { useWindowSize } from "@react-hook/window-size";
 
 const boardDetails = {

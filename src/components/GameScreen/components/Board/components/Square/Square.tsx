@@ -1,9 +1,6 @@
 import React, { FC, useContext } from "react";
 import styled from "styled-components";
-import {
-  Coordinates,
-  Piece as PieceType,
-} from "../../../../../../domain/types";
+import { Coordinates, Piece as PieceType } from "domain/types";
 import { Piece, GridArrangement } from "./components";
 import { GameContext } from "../../";
 import update from "immutability-helper";
