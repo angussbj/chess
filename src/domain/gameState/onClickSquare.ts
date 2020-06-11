@@ -1,6 +1,5 @@
-import { State, setState, Coordinates, Piece } from "domain/types";
-import { livePiecesAt } from "./State";
-import update from "immutability-helper";
+import { State, setState, Coordinates } from "domain/types";
+import { livePiecesAt, killPiecesAt, moveActivePiecesTo } from "./State";
 
 export const onClickSquare = (
   gameState: State,
@@ -11,31 +10,7 @@ export const onClickSquare = (
   const colorOnSquare = livePiecesAt(location, gameState)[0]?.color;
 
   if (activeColor && (!colorOnSquare || colorOnSquare !== activeColor)) {
-    const moveActivePieces = (pieces: Piece[]): Piece[] =>
-      pieces.map((p) => {
-        if (p.active) {
-          return update(p, {
-            location: { $set: location },
-            active: { $set: false },
-          });
-        }
-        return p;
-      });
-    const killPiecesOnSquare = (pieces: Piece[]): Piece[] =>
-      pieces.map((p) => {
-        if (p.location.x === location.x && p.location.y === location.y) {
-          return update(p, {
-            alive: { $set: false },
-          });
-        }
-        return p;
-      });
-    const newGameState = update(gameState, {
-      pieces: {
-        $apply: (pieces: Piece[]) =>
-          moveActivePieces(killPiecesOnSquare(pieces)),
-      },
-    });
-    setGameState(newGameState);
+    killPiecesAt(gameState, setGameState, location);
+    moveActivePiecesTo(gameState, setGameState, location);
   }
 };
