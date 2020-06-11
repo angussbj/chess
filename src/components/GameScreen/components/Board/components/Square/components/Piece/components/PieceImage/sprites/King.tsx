@@ -18,8 +18,8 @@ const King: FC<Props> = ({ color, active, size }) => {
       </defs>
       <g
         fill={primary}
-        stroke={secondary}
-        strokeWidth={1.2}
+        stroke={"#000000"}
+        strokeWidth={0.9}
         filter={active ? "url(#glow)" : undefined}
       >
         <path d="M 22.5,11.63 L 22.5,6" />

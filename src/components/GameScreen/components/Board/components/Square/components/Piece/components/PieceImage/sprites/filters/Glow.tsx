@@ -13,10 +13,10 @@ const Glow: FC = () => {
       <feColorMatrix
         type="matrix"
         result="color"
-        values="1 0 0 0 0
-                                   0 0 0 0 0
-                                   0 0 0 0 0
-                                   0 0 0 1 0"
+        values="0 0 0 0 1
+                0 0 0 0 0.3
+                0 0 0 0 0
+                0 0 0 1 0"
       />
       <feGaussianBlur in="color" stdDeviation="4" result="blur" />
       <feOffset in="blur" dx="0" dy="0" result="offset" />

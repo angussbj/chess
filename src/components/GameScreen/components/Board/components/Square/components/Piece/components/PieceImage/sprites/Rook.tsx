@@ -18,8 +18,8 @@ const Rook: FC<Props> = ({ color, active, size }) => {
       </defs>
       <g
         fill={primary}
-        stroke={secondary}
-        strokeWidth={1.2}
+        stroke={"#000000"}
+        strokeWidth={0.9}
         filter={active ? "url(#glow)" : undefined}
       >
         <path d="M 9,39 L 36,39 L 36,36 L 9,36 L 9,39 z " />

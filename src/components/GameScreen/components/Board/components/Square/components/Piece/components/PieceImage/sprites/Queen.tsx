@@ -18,8 +18,8 @@ const Queen: FC<Props> = ({ color, size, active }) => {
       </defs>
       <g
         fill={primary}
-        stroke={secondary}
-        strokeWidth={1.2}
+        stroke={"#000000"}
+        strokeWidth={0.9}
         filter={active ? "url(#glow)" : undefined}
       >
         <path

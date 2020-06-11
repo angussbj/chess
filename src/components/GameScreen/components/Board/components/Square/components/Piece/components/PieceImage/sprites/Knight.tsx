@@ -18,8 +18,8 @@ const Knight: FC<Props> = ({ color, active, size }) => {
       </defs>
       <g
         fill={primary}
-        stroke={secondary}
-        strokeWidth={1.2}
+        stroke={"#000000"}
+        strokeWidth={0.9}
         filter={active ? "url(#glow)" : undefined}
       >
         <path d="M 22,10 C 32.5,11 38.5,18 38,39 L 15,39 C 15,30 25,32.5 23,18" />

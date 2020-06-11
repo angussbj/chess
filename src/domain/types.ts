@@ -23,8 +23,8 @@ export enum PieceType {
 }
 
 export enum Color {
-  Black = "#000000",
-  White = "#ffffff",
+  Black = "#404040",
+  White = "#fcfcfc",
 }
 
 export enum Turn {
