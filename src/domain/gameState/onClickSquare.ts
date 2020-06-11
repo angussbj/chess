@@ -10,7 +10,7 @@ export const onClickSquare = (
   const colorOnSquare = livePiecesAt(location, gameState)[0]?.color;
 
   if (activeColor && (!colorOnSquare || colorOnSquare !== activeColor)) {
-    killPiecesAt(gameState, setGameState, location);
-    moveActivePiecesTo(gameState, setGameState, location);
+    const newGameState = killPiecesAt(gameState, setGameState, location);
+    moveActivePiecesTo(newGameState, setGameState, location);
   }
 };
